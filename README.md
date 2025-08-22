@@ -120,8 +120,8 @@ Adding Your Logo
 Replace images/logo.png with your own logo file.
 
 📁 File Structure
-text
-nutriment-website/
+
+# nutriment-website/
 ├── index.html              # Homepage
 ├── about.html              # About page
 ├── services.html           # Services page
