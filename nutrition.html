@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nutrition Finder</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f8f9fa;
+    }
+    h2 {
+      color: #333;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #results {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h2>🍎 Nutrition Search</h2>
+  <input type="text" id="foodInput" list="foodSuggestions" placeholder="Search for food...">
+  <datalist id="foodSuggestions"></datalist>
+  <button onclick="searchFoods()">Search</button>
+
+  <div id="results"></div>
+
+  <script>
+    // ✅ Food Database (fruits, vegetables, nuts, meats, grains, dairy)
+    const foodDatabase = [
+      // Fruits
+      { name: "Apple", calories: 95, protein: 0.5, carbs: 25, fats: 0.3 },
+      { name: "Banana", calories: 105, protein: 1.3, carbs: 27, fats: 0.4 },
+      { name: "Orange", calories: 62, protein: 1.2, carbs: 15, fats: 0.2 },
+      { name: "Mango", calories: 99, protein: 1.4, carbs: 25, fats: 0.6 },
+      { name: "Grapes (1 cup)", calories: 104, protein: 1.1, carbs: 27, fats: 0.2 },
+      { name: "Strawberries (1 cup)", calories: 49, protein: 1, carbs: 12, fats: 0.5 },
+      { name: "Pineapple (1 cup)", calories: 82, protein: 1, carbs: 22, fats: 0.2 },
+      { name: "Watermelon (1 cup)", calories: 46, protein: 0.9, carbs: 12, fats: 0.2 },
+      { name: "Avocado (100g)", calories: 160, protein: 2, carbs: 9, fats: 15 },
+      { name: "Papaya (1 cup)", calories: 59, protein: 1, carbs: 15, fats: 0.4 },
+
+      // Vegetables
+      { name: "Broccoli (1 cup)", calories: 55, protein: 3.7, carbs: 11, fats: 0.6 },
+      { name: "Spinach (1 cup)", calories: 7, protein: 0.9, carbs: 1, fats: 0.1 },
+      { name: "Carrot (1 medium)", calories: 25, protein: 0.6, carbs: 6, fats: 0.1 },
+      { name: "Potato (1 medium)", calories: 163, protein: 4, carbs: 37, fats: 0.2 },
+      { name: "Sweet Potato (1 medium)", calories: 112, protein: 2, carbs: 26, fats: 0.1 },
+      { name: "Tomato (1 medium)", calories: 22, protein: 1.1, carbs: 5, fats: 0.2 },
+      { name: "Cucumber (1 cup)", calories: 16, protein: 0.7, carbs: 4, fats: 0.1 },
+      { name: "Onion (1 medium)", calories: 44, protein: 1.2, carbs: 10, fats: 0.1 },
+      { name: "Cauliflower (1 cup)", calories: 25, protein: 2, carbs: 5, fats: 0.3 },
+      { name: "Peas (1 cup)", calories: 118, protein: 8, carbs: 21, fats: 0.6 },
+
+      // Nuts & Seeds
+      { name: "Almonds (1 oz)", calories: 164, protein: 6, carbs: 6, fats: 14 },
+      { name: "Cashews (1 oz)", calories: 155, protein: 5, carbs: 9, fats: 12 },
+      { name: "Walnuts (1 oz)", calories: 185, protein: 4, carbs: 4, fats: 18 },
+      { name: "Peanuts (1 oz)", calories: 161, protein: 7, carbs: 5, fats: 14 },
+      { name: "Pistachios (1 oz)", calories: 159, protein: 6, carbs: 8, fats: 13 },
+      { name: "Chia Seeds (1 oz)", calories: 138, protein: 4.7, carbs: 12, fats: 8.7 },
+      { name: "Flaxseeds (1 oz)", calories: 150, protein: 5, carbs: 8, fats: 12 },
+      { name: "Sunflower Seeds (1 oz)", calories: 164, protein: 6, carbs: 6, fats: 14 },
+
+      // Meats & Fish
+      { name: "Chicken Breast (100g)", calories: 165, protein: 31, carbs: 0, fats: 3.6 },
+      { name: "Beef Steak (100g)", calories: 271, protein: 25, carbs: 0, fats: 19 },
+      { name: "Pork (100g)", calories: 242, protein: 27, carbs: 0, fats: 14 },
+      { name: "Lamb (100g)", calories: 294, protein: 25, carbs: 0, fats: 21 },
+      { name: "Turkey (100g)", calories: 135, protein: 29, carbs: 0, fats: 1 },
+      { name: "Salmon (100g)", calories: 208, protein: 20, carbs: 0, fats: 13 },
+      { name: "Tuna (100g)", calories: 132, protein: 28, carbs: 0, fats: 1 },
+      { name: "Shrimp (100g)", calories: 99, protein: 24, carbs: 0, fats: 0.3 },
+      { name: "Egg (large)", calories: 70, protein: 6, carbs: 0.6, fats: 5 },
+
+      // Grains & Legumes
+      { name: "Rice (1 cup cooked)", calories: 206, protein: 4, carbs: 45, fats: 0.4 },
+      { name: "Brown Rice (1 cup)", calories: 215, protein: 5, carbs: 45, fats: 1.8 },
+      { name: "Quinoa (1 cup cooked)", calories: 222, protein: 8, carbs: 39, fats: 3.5 },
+      { name: "Oats (1 cup)", calories: 307, protein: 11, carbs: 55, fats: 5 },
+      { name: "Bread (1 slice)", calories: 79, protein: 3, carbs: 15, fats: 1 },
+      { name: "Lentils (1 cup cooked)", calories: 230, protein: 18, carbs: 40, fats: 0.8 },
+      { name: "Chickpeas (1 cup cooked)", calories: 269, protein: 15, carbs: 45, fats: 4 },
+      { name: "Kidney Beans (1 cup cooked)", calories: 225, protein: 15, carbs: 40, fats: 0.9 },
+      { name: "Black Beans (1 cup cooked)", calories: 227, protein: 15, carbs: 41, fats: 0.9 },
+
+      // Dairy
+      { name: "Milk (1 cup)", calories: 103, protein: 8, carbs: 12, fats: 2.4 },
+      { name: "Yogurt (1 cup)", calories: 149, protein: 8.5, carbs: 11, fats: 8 },
+      { name: "Cheddar Cheese (28g)", calories: 113, protein: 7, carbs: 0.4, fats: 9 },
+      { name: "Butter (1 tbsp)", calories: 102, protein: 0.1, carbs: 0, fats: 11 }
+    ];
+
+    // ✅ Search function
+    function searchFoods() {
+      const input = document.getElementById("foodInput").value.toLowerCase();
+      const food = foodDatabase.find(f => f.name.toLowerCase() === input);
+
+      const resultsDiv = document.getElementById("results");
+      if (food) {
+        resultsDiv.innerHTML = `
+          <h3>${food.name}</h3>
+          <p><strong>Calories:</strong> ${food.calories}</p>
+          <p><strong>Protein:</strong> ${food.protein} g</p>
+          <p><strong>Carbs:</strong> ${food.carbs} g</p>
+          <p><strong>Fats:</strong> ${food.fats} g</p>
+        `;
+      } else {
+        resultsDiv.innerHTML = `<p style="color:red;">Food not found. Try typing slowly to see suggestions.</p>`;
+      }
+    }
+
+    // ✅ Auto-suggestions
+    function updateSuggestions() {
+      const searchTerm = foodInput.value.toLowerCase();
+      const suggestions = foodDatabase
+        .filter(food => food.name.toLowerCase().includes(searchTerm))
+        .slice(0, 10);
+
+      const suggestionList = document.getElementById("foodSuggestions");
+      suggestionList.innerHTML = "";
+
+      suggestions.forEach(food => {
+        const option = document.createElement("option");
+        option.value = food.name;
+        suggestionList.appendChild(option);
+      });
+    }
+
+    foodInput.addEventListener("input", updateSuggestions);
+  </script>
+</body>
+</html>

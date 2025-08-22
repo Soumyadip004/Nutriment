@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nutriment</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/ionicons.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+      /* Calculator Icon */
+      .calculator-icon {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: #4CAF50;
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 999;
+        transition: all 0.3s ease;
+      }
+      
+      .calculator-icon:hover {
+        background: #3e8e41;
+        transform: scale(1.1);
+      }
+      
+      /* Calculator Widget */
+      .calculator-widget {
+        position: fixed;
+        bottom: 100px;
+        right: 30px;
+        width: 350px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        z-index: 1000;
+        display: none;
+        overflow: hidden;
+      }
+      
+      .calculator-header {
+        background: #4CAF50;
+        color: white;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      .close-calculator {
+        font-size: 24px;
+        cursor: pointer;
+      }
+      
+      .calculator-body {
+        padding: 15px;
+      }
+      
+      .food-search {
+        display: flex;
+        margin-bottom: 15px;
+        position: relative;
+      }
+      
+      .food-search input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px 0 0 4px;
+      }
+      
+      .food-search button {
+        background: #4CAF50;
+        color: white;
+        border: none;
+        padding: 0 15px;
+        border-radius: 0 4px 4px 0;
+        cursor: pointer;
+      }
+      
+      .food-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #ddd;
+        border-top: none;
+        border-radius: 0 0 4px 4px;
+        max-height: 200px;
+        overflow-y: auto;
+        z-index: 1001;
+        display: none;
+      }
+      
+      .dropdown-item {
+        padding: 8px 10px;
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+      }
+      
+      .dropdown-item:hover {
+        background-color: #f5f5f5;
+      }
+      
+      .selected-foods {
+        margin-bottom: 15px;
+      }
+      
+      #foodList {
+        list-style: none;
+        padding: 0;
+      }
+      
+      #foodList li {
+        padding: 8px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+      }
+      
+      .remove-food {
+        color: #ff4444;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+      
+      .nutrition-summary {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 4px;
+      }
+      
+      .nutrition-facts div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <img src="images/logo.png" alt="Nutriment Logo" class="navbar-logo" style="height: 40px; margin-right: 10px;">
+          Nutriment
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="oi oi-menu"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
+            <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="book.html" class="nav-link">Book Appointment</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- END nav -->
+    
+    <section class="home-slider js-fullheight owl-carousel bg-white">
+      <div class="slider-item js-fullheight">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row d-md-flex no-gutters slider-text js-fullheight align-items-center justify-content-end" data-scrollax-parent="true">
+            <div class="one-third order-md-last img js-fullheight" style="background-image:url(images/bg_1.jpg);">
+              <h3 class="vr">Nutrition Wellness</h3>
+            </div>
+            <div class="one-forth d-flex js-fullheight align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+              <div class="text">
+                <h1 class="mb-4">We Believe in <br>Holistic Nutrition</h1>
+                <p>Nutrition is the foundation of health. Our approach combines scientific knowledge with personalized care to help you achieve optimal wellness through food as medicine.</p>
+                <p><a href="#" class="btn btn-primary px-4 py-3 mt-3">Explore Our Services</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slider-item js-fullheight">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row d-flex no-gutters slider-text js-fullheight align-items-center justify-content-end" data-scrollax-parent="true">
+            <div class="one-third order-md-last img js-fullheight" style="background-image:url(images/bg_2.jpg);">
+              <h3 class="vr">Since - 2020</h3>
+            </div>
+            <div class="one-forth d-flex js-fullheight align-items-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+              <div class="text">
+                <h1 class="mb-4">Personalized Nutrition Plans</h1>
+                <p>Every body is unique. We create customized nutrition strategies tailored to your individual needs, preferences, and health goals for sustainable results.</p>
+                <p><a href="#" class="btn btn-primary px-4 py-3 mt-3">Get Started</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="ftco-section ftc-no-pb">
+      <div class="container">
+        <div class="row no-gutters">
+          <div class="col-md-5 p-md-5 img img-2" style="background-image: url(images/hero2.png);">
+          </div>
+          <div class="col-md-7 wrap-about pb-md-5 ftco-animate">
+            <div class="heading-section mb-5 pl-md-5">
+              <div class="pl-md-5 ml-md-5">
+                <span class="subheading subheading-with-line"><small class="pr-2 bg-white">About</small></span>
+                <h2 class="mb-4">Your Trusted Nutrition Partner</h2>
+              </div>
+            </div>
+            <div class="pl-md-5 ml-md-5 mb-5">
+              <p>At Nutriment, we understand that nutrition is deeply personal. Our approach goes beyond generic diet plans to address your unique biochemistry, lifestyle, and health objectives. Whether you're managing a chronic condition, optimizing athletic performance, or simply seeking better health, we provide evidence-based guidance tailored to your needs.</p>
+              <p>Our philosophy centers on sustainable, enjoyable eating patterns that nourish both body and mind. We reject restrictive fad diets in favor of balanced, nutrient-dense eating that supports your health goals while still allowing for pleasure and flexibility in your food choices.</p>
+              <p><a href="#" class="btn-custom">Learn More <span class="ion-ios-arrow-forward"></span></a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(images/bg_3.jpg);" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row d-md-flex align-items-center justify-content-end">
+          <div class="col-lg-10">
+            <div class="row d-md-flex align-items-center">
+              <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18">
+                  <div class="text">
+                    <strong class="number" data-number="5">0</strong>
+                    <span>Years of Experience</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18">
+                  <div class="text">
+                    <strong class="number" data-number="560">0</strong>
+                    <span>Happy Clients</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18">
+                  <div class="text">
+                    <strong class="number" data-number="684">0</strong>
+                    <span>Nutrition Plans Created</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+                <div class="block-18">
+                  <div class="text">
+                    <strong class="number" data-number="300">0</strong>
+                    <span>Meal Plans Developed</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-services">
+      <div class="container">
+        <div class="row justify-content-start mb-5 pb-5">
+          <div class="col-md-4 heading-section ftco-animate">
+            <h2 class="mb-4">Our Approach</h2>
+          </div>
+          <div class="col-md-8 pl-md-5 ftco-animate">
+            <div class="pl-md-4 border-line">
+              <p>We take a comprehensive, science-based approach to nutrition that considers your whole health picture - from medical history to lifestyle factors - to create strategies that work for your real life.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services d-block">
+              <div class="icon d-flex justify-content-center align-items-center">
+                <span class="flaticon-idea"></span>
+              </div>
+              <div class="media-body p-2 mt-3">
+                <h3 class="heading">Personalized Plans</h3>
+                <p>Tailored nutrition strategies based on your unique needs, preferences, and health objectives.</p>
+              </div>
+            </div>      
+          </div>
+          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services d-block">
+              <div class="icon d-flex justify-content-center align-items-center">
+                <span class="flaticon-compass-symbol"></span>
+              </div>
+              <div class="media-body p-2 mt-3">
+                <h3 class="heading">Evidence-Based</h3>
+                <p>Recommendations grounded in the latest nutritional science and clinical research.</p>
+              </div>
+            </div>    
+          </div>
+          <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+            <div class="media block-6 services d-block">
+              <div class="icon d-flex justify-content-center align-items-center">
+                <span class="flaticon-layers"></span>
+              </div>
+              <div class="media-body p-2 mt-3">
+                <h3 class="heading">Sustainable Results</h3>
+                <p>Focus on creating lasting habits rather than quick fixes for lifelong health benefits.</p>
+              </div>
+            </div>      
+          </div>
+        </div>
+        <div class="row justify-content-start mt-5 py-5">
+          <div class="col-md-4 heading-section ftco-animate">
+            <h2 class="mb-4">Our Services</h2>
+            <p>Comprehensive nutrition services designed to meet your specific needs and health goals.</p>
+          </div>
+          <div class="col-md-8 ftco-animate">
+            <div class="row d-flex">
+              <div class="col-md-6 d-flex align-items-stretch">
+                <div class="media block-6 services services-2 d-block bg-light p-4 mb-4">
+                  <div class="icon d-flex justify-content-center align-items-center">
+                    <span class="flaticon-layers"></span>
+                  </div>
+                  <div class="media-body p-2 mt-3">
+                    <h3 class="heading">Weight Management</h3>
+                    <p>Personalized strategies for healthy, sustainable weight loss or gain based on your metabolism.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 d-flex align-items-stretch">
+                <div class="media block-6 services services-2 d-block bg-light p-4 mb-4">
+                  <div class="icon d-flex justify-content-center align-items-center">
+                    <span class="flaticon-layers"></span>
+                  </div>
+                  <div class="media-body p-2 mt-3">
+                    <h3 class="heading">Medical Nutrition Therapy</h3>
+                    <p>Specialized nutrition plans for diabetes, heart health, digestive issues, and other conditions.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 d-flex align-items-stretch">
+                <div class="media block-6 services services-2 d-block bg-light p-4 mb-4">
+                  <div class="icon d-flex justify-content-center align-items-center">
+                    <span class="flaticon-layers"></span>
+                  </div>
+                  <div class="media-body p-2 mt-3">
+                    <h3 class="heading">Sports Nutrition</h3>
+                    <p>Performance-optimizing nutrition plans for athletes and active individuals.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 d-flex align-items-stretch">
+                <div class="media block-6 services services-2 d-block bg-light p-4 mb-4">
+                  <div class="icon d-flex justify-content-center align-items-center">
+                    <span class="flaticon-layers"></span>
+                  </div>
+                  <div class="media-body p-2 mt-3">
+                    <h3 class="heading">Family Nutrition</h3>
+                    <p>Guidance for healthy eating at all life stages, from childhood through senior years.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-section testimony-section bg-light">
+      <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+          <div class="col-md-7 heading-section ftco-animate">
+            <span class="subheading subheading-with-line"><small class="pr-2 bg-light">Testimonials</small></span>
+            <h2 class="mb-4">What Our Clients Say</h2>
+            <p>Don't just take our word for it - hear from people who have transformed their health through our personalized nutrition programs.</p>
+          </div>
+        </div>
+        <div class="row ftco-animate">
+          <div class="col-md-12">
+            <div class="carousel-testimony owl-carousel">
+              <div class="item">
+                <div class="testimony-wrap p-4 pb-5">
+                  <div class="user-img mb-5" style="background-image: url(images/person_2.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+                  <div class="text">
+                    <p class="mb-5 pl-4 line">Working with Nutriment completely changed my relationship with food. I lost 45 pounds and more importantly, learned how to maintain my healthy weight without restrictive dieting.</p>
+                    <div class="pl-5">
+                      <p class="name">Rumpa Paul</p>
+                      <span class="position">Weight Management Client</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="testimony-wrap p-4 pb-5">
+                  <div class="user-img mb-5" style="background-image: url(images/person_3.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+                  <div class="text">
+                    <p class="mb-5 pl-4 line">As a competitive athlete, I needed nutrition that would support my training. The personalized plan helped me improve my performance and recovery dramatically.</p>
+                    <div class="pl-5">
+                      <p class="name">Sudipta Deb Roy</p>
+                      <span class="position">Triathlete</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="testimony-wrap p-4 pb-5">
+                  <div class="user-img mb-5" style="background-image: url(images/person_4.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+                  <div class="text">
+                    <p class="mb-5 pl-4 line">After being diagnosed with prediabetes, the nutrition plan helped me reverse my condition in just 6 months. My doctor was amazed at my lab results!</p>
+                    <div class="pl-5">
+                      <p class="name">Ishitri Chowdhury</p>
+                      <span class="position">Diabetes Prevention Client</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="testimony-wrap p-4 pb-5">
+                  <div class="user-img mb-5" style="background-image: url(images/person_5.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+                  <div class="text">
+                    <p class="mb-5 pl-4 line">The family nutrition guidance helped us establish healthy eating habits for our kids while still keeping meals enjoyable for everyone.</p>
+                    <div class="pl-5">
+                      <p class="name">Dr. Sambit Chatterjee</p>
+                      <span class="position">Parent of Two</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="testimony-wrap p-4 pb-5">
+                  <div class="user-img mb-5" style="background-image: url(images/person_6.jpg)">
+                    <span class="quote d-flex align-items-center justify-content-center">
+                      <i class="icon-quote-left"></i>
+                    </span>
+                  </div>
+                  <div class="text">
+                    <p class="mb-5 pl-4 line">Finally, a nutritionist who understands digestive issues! The IBS management plan gave me my life back without relying on medications.</p>
+                    <div class="pl-5">
+                      <p class="name">Somali</p>
+                      <span class="position">Digestive Health Client</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="ftco-section bg-light">
+      <div class="container">
+        <div class="row justify-content-start mb-5 pb-2">
+          <div class="col-md-4 heading-section ftco-animate">
+            <span class="subheading subheading-with-line"><small class="pr-2 bg-white">Blog</small></span>
+            <h2 class="mb-4">Nutrition Insights</h2>
+          </div>
+          <div class="col-md-8 pl-md-5 heading-section ftco-animate">
+            <div class="pl-md-4 border-line">
+              <p>Evidence-based articles and practical tips to help you make informed nutrition choices for better health.</p>
+            </div>
+          </div>
+        </div>  
+        <div class="row">
+          <div class="col-md-4 ftco-animate">
+            <div class="blog-entry">
+              <a href="https://soumyadipchanda.blogspot.com/2024/05/debunking-diet-myths-fact-vs-fiction.html" class="block-20" style="background-image: url('images/blog1.png');">
+              </a>
+              <div class="text d-flex py-4">
+                <div class="meta mb-3">
+                  <div><a href="https://soumyadipchanda.blogspot.com/2024/05/debunking-diet-myths-fact-vs-fiction.html">May 20, 2024</a></div>
+                  <div><a href="https://soumyadipchanda.blogspot.com/2024/05/debunking-diet-myths-fact-vs-fiction.html"> Soumyadip Chanda </a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 12</a></div>
+                </div>
+                <div class="desc pl-3">
+                  <h3 class="heading"><a href="#">Debunking Common Nutrition Myths</a></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ftco-animate">
+            <div class="blog-entry" data-aos-delay="100">
+              <a href="https://soumyadipchanda.blogspot.com/2025/08/pre-workout-nutrition-for-optimal.html" class="block-20" style="background-image: url('images/blog2.png');">
+              </a>
+              <div class="text d-flex py-4">
+                <div class="meta mb-3">
+                  <div><a href="https://soumyadipchanda.blogspot.com/2025/08/pre-workout-nutrition-for-optimal.html">Aug 18, 2025</a></div>
+                  <div><a href="https://soumyadipchanda.blogspot.com/2025/08/pre-workout-nutrition-for-optimal.html">Trisha Sarkar</a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 8</a></div>
+                </div>
+                <div class="desc pl-3">
+                  <h3 class="heading"><a href="#">Pre-Workout Nutrition for Optimal Performance</a></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ftco-animate">
+            <div class="blog-entry" data-aos-delay="200">
+              <a href="https://soumyadipchanda.blogspot.com/2025/08/healthy-lunch-ideas-for-back-to-school.html" class="block-20" style="background-image: url('images/blog3.png');">
+              </a>
+              <div class="text d-flex py-4">
+                <div class="meta mb-3">
+                  <div><a href="https://soumyadipchanda.blogspot.com/2025/08/healthy-lunch-ideas-for-back-to-school.html">June 18, 2025</a></div>
+                  <div><a href="https://soumyadipchanda.blogspot.com/2025/08/healthy-lunch-ideas-for-back-to-school.html">Trisha Sarkar</a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 15</a></div>
+                </div>
+                <div class="desc pl-3">
+                  <h3 class="heading"><a href="#">Healthy Lunch Ideas for Back to School</a></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ftco-section ftco-client">
+      <div class="container">
+        <div class="row justify-content-start mb-5 pb-2">
+          <div class="col-md-4 heading-section ftco-animate">
+            <span class="subheading subheading-with-line"><small class="pr-2 bg-white">Partners</small></span>
+            <h2 class="mb-4">Trusted By</h2>
+          </div>
+          <div class="col-md-8 pl-md-5 heading-section ftco-animate">
+            <div class="pl-md-4 border-line">
+              <p>We're proud to collaborate with these outstanding organizations to promote nutrition education and wellness in our community.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row ftco-animate">
+          <div class="col-md-12">
+            <div class="carousel-client owl-carousel">
+              <div class="item">
+                <a href="#" class="client text-center p-5">
+                  <img src="images/logo3.jpg" alt="Community Health Initiative" class="client-logo">
+                  <span class="client-name">BM Birla Heart Hospital</span>
+                </a>
+              </div>
+              <div class="item">
+                <a href="#" class="client text-center p-5">
+                  <img src="images/logo4.png" alt="Community Health Initiative" class="client-logo">
+                  <span class="client-name">National Diabetes Educator Program</span>
+                </a>
+              </div>
+              <div class="item">
+                <a href="#" class="client text-center p-5">
+                  <img src="images/logo2.jpg" alt="Community Health Initiative" class="client-logo">
+                  <span class="client-name">Dr. P K Saha Hospital PVT. LTD.</span>
+                </a>
+              </div>
+              <div class="item">
+                <a href="#" class="client text-center p-5">
+                  <img src="images/logo1.png" alt="Community Health Initiative" class="client-logo">
+                  <span class="client-name">KPC Medical College & Hospital</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Nutriment</h2>
+              <p>Empowering your health journey through personalized nutrition and evidence-based wellness strategies.</p>
+              <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3">
+                <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
+                <li class="ftco-animate"><a href="https://www.facebook.com/share/16wFg8fNHW/"><span class="icon-facebook"></span></a></li>
+                <li class="ftco-animate"><a href="https://www.instagram.com/nutri.tips.97?igsh=ZWM0ZGc2ZjhlOWIx"><span class="icon-instagram"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="ftco-footer-widget mb-4 ml-md-4">
+              <h2 class="ftco-heading-2">Links</h2>
+              <ul class="list-unstyled">
+                <li><a href="index.html"><span class="icon-long-arrow-right mr-2"></span>Home</a></li>
+                <li><a href="about.html"><span class="icon-long-arrow-right mr-2"></span>About</a></li>
+                <li><a href="services.html"><span class="icon-long-arrow-right mr-2"></span>Services</a></li>
+                <li><a href="contact.html"><span class="icon-long-arrow-right mr-2"></span>Contact</a></li>
+                <li><a href="book.html"><span class="icon-long-arrow-right mr-2"></span>Book Appointment</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md">
+             <div class="ftco-footer-widget mb-4">
+              <h2 class="ftco-heading-2">Services</h2>
+              <ul class="list-unstyled">
+                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Weight Management</a></li>
+                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Medical Nutrition Therapy</a></li>
+                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Sports Nutrition</a></li>
+                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Family Nutrition</a></li>
+                <li><a href="#"><span class="icon-long-arrow-right mr-2"></span>Plant-Based Nutrition</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Nutriment
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Calorie/Nutrient Calculator Widget -->
+    <div class="calculator-icon" id="calculatorTrigger">
+      <i class="fas fa-calculator"></i>
+    </div>
+
+    <div class="calculator-widget" id="calculatorWidget">
+      <div class="calculator-header">
+        <h4>Calorie/Nutrient Calculator</h4>
+        <span class="close-calculator" id="closeCalculator">&times;</span>
+      </div>
+      <div class="calculator-body">
+        <div class="food-search">
+          <input type="text" id="foodInput" placeholder="Search for food..." autocomplete="off">
+          <div class="food-dropdown" id="foodDropdown"></div>
+          <button id="searchFood"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="selected-foods" id="selectedFoods">
+          <h5>Your Foods Today</h5>
+          <ul id="foodList"></ul>
+        </div>
+        <div class="nutrition-summary">
+          <h5>Daily Total</h5>
+          <div class="nutrition-facts">
+            <div><span>Calories:</span> <span id="totalCalories">0</span> kcal</div>
+            <div><span>Protein:</span> <span id="totalProtein">0</span> g</div>
+            <div><span>Carbs:</span> <span id="totalCarbs">0</span> g</div>
+            <div><span>Fats:</span> <span id="totalFats">0</span> g</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/jquery.timepicker.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
+    <script src="js/main.js"></script>
+
+    <script>
+      // Expanded food database with 100 items
+      const foodDatabase = [
+        { name: "Apple", calories: 95, protein: 0.5, carbs: 25, fats: 0.3 },
+        { name: "Banana", calories: 105, protein: 1.3, carbs: 27, fats: 0.4 },
+        { name: "Orange", calories: 62, protein: 1.2, carbs: 15, fats: 0.2 },
+        { name: "Strawberries (1 cup)", calories: 49, protein: 1, carbs: 12, fats: 0.5 },
+        { name: "Blueberries (1 cup)", calories: 84, protein: 1.1, carbs: 21, fats: 0.5 },
+        { name: "Grapes (1 cup)", calories: 104, protein: 1.1, carbs: 27, fats: 0.2 },
+        { name: "Watermelon (1 cup)", calories: 46, protein: 0.9, carbs: 11, fats: 0.2 },
+        { name: "Pineapple (1 cup)", calories: 82, protein: 0.9, carbs: 22, fats: 0.2 },
+        { name: "Mango (1 cup)", calories: 99, protein: 1.4, carbs: 25, fats: 0.6 },
+        { name: "Peach", calories: 59, protein: 1.4, carbs: 14, fats: 0.4 },
+        { name: "Pear", calories: 101, protein: 0.6, carbs: 27, fats: 0.2 },
+        { name: "Kiwi", calories: 42, protein: 0.8, carbs: 10, fats: 0.4 },
+        { name: "Avocado (1/2)", calories: 120, protein: 1.5, carbs: 6, fats: 11 },
+        { name: "Chicken Breast (100g)", calories: 165, protein: 31, carbs: 0, fats: 3.6 },
+        { name: "Turkey Breast (100g)", calories: 135, protein: 30, carbs: 0, fats: 1.7 },
+        { name: "Salmon (100g)", calories: 208, protein: 20, carbs: 0, fats: 13 },
+        { name: "Tuna (100g)", calories: 144, protein: 23, carbs: 0, fats: 5 },
+        { name: "Shrimp (100g)", calories: 99, protein: 24, carbs: 0.2, fats: 0.3 },
+        { name: "Egg (large)", calories: 70, protein: 6, carbs: 0.6, fats: 5 },
+        { name: "Egg Whites (large)", calories: 17, protein: 3.6, carbs: 0.2, fats: 0.1 },
+        { name: "Ground Beef (85% lean, 100g)", calories: 254, protein: 17, carbs: 0, fats: 20 },
+        { name: "Pork Chop (100g)", calories: 242, protein: 27, carbs: 0, fats: 14 },
+        { name: "Bacon (slice)", calories: 43, protein: 3, carbs: 0.1, fats: 3.3 },
+        { name: "Brown Rice (1 cup)", calories: 215, protein: 5, carbs: 45, fats: 1.8 },
+        { name: "White Rice (1 cup)", calories: 205, protein: 4.3, carbs: 45, fats: 0.4 },
+        { name: "Quinoa (1 cup)", calories: 222, protein: 8, carbs: 39, fats: 3.6 },
+        { name: "Oatmeal (1 cup)", calories: 158, protein: 6, carbs: 27, fats: 3.2 },
+        { name: "Whole Wheat Bread (slice)", calories: 69, protein: 3.6, carbs: 12, fats: 1 },
+        { name: "White Bread (slice)", calories: 79, protein: 2.7, carbs: 15, fats: 1 },
+        { name: "Pasta (1 cup cooked)", calories: 220, protein: 8, carbs: 43, fats: 1.3 },
+        { name: "Sweet Potato (medium)", calories: 103, protein: 2.3, carbs: 24, fats: 0.2 },
+        { name: "Potato (medium)", calories: 161, protein: 4.3, carbs: 37, fats: 0.2 },
+        { name: "Broccoli (1 cup)", calories: 55, protein: 3.7, carbs: 11, fats: 0.6 },
+        { name: "Carrots (1 cup)", calories: 52, protein: 1.2, carbs: 12, fats: 0.3 },
+        { name: "Spinach (1 cup)", calories: 7, protein: 0.9, carbs: 1.1, fats: 0.1 },
+        { name: "Kale (1 cup)", calories: 33, protein: 2.9, carbs: 6, fats: 0.6 },
+        { name: "Lettuce (1 cup)", calories: 5, protein: 0.5, carbs: 1, fats: 0.1 },
+        { name: "Tomato (medium)", calories: 22, protein: 1.1, carbs: 4.8, fats: 0.2 },
+        { name: "Cucumber (1 cup)", calories: 16, protein: 0.7, carbs: 3.8, fats: 0.1 },
+        { name: "Bell Pepper (medium)", calories: 31, protein: 1, carbs: 7, fats: 0.3 },
+        { name: "Onion (medium)", calories: 44, protein: 1.2, carbs: 10, fats: 0.1 },
+        { name: "Mushrooms (1 cup)", calories: 15, protein: 2.2, carbs: 2.3, fats: 0.2 },
+        { name: "Green Beans (1 cup)", calories: 31, protein: 1.8, carbs: 7, fats: 0.1 },
+        { name: "Corn (1 cup)", calories: 143, protein: 5.4, carbs: 31, fats: 2.2 },
+        { name: "Peas (1 cup)", calories: 118, protein: 8, carbs: 21, fats: 0.6 },
+        { name: "Almonds (1 oz)", calories: 164, protein: 6, carbs: 6, fats: 14 },
+        { name: "Walnuts (1 oz)", calories: 185, protein: 4.3, carbs: 3.9, fats: 18 },
+        { name: "Peanuts (1 oz)", calories: 161, protein: 7.3, carbs: 4.6, fats: 14 },
+        { name: "Cashews (1 oz)", calories: 157, protein: 5.2, carbs: 8.6, fats: 12 },
+        { name: "Pistachios (1 oz)", calories: 159, protein: 5.7, carbs: 7.7, fats: 12.9 },
+        { name: "Sunflower Seeds (1 oz)", calories: 164, protein: 5.8, carbs: 6.5, fats: 14 },
+        { name: "Pumpkin Seeds (1 oz)", calories: 151, protein: 7, carbs: 5, fats: 13 },
+        { name: "Almond Butter (1 tbsp)", calories: 98, protein: 3.4, carbs: 3, fats: 8.9 },
+        { name: "Peanut Butter (1 tbsp)", calories: 94, protein: 4, carbs: 3, fats: 8 },
+        { name: "Milk (1 cup whole)", calories: 149, protein: 7.7, carbs: 11.7, fats: 8 },
+        { name: "Milk (1 cup skim)", calories: 83, protein: 8.3, carbs: 12.2, fats: 0.2 },
+        { name: "Cheese (1 oz cheddar)", calories: 113, protein: 7, carbs: 0.4, fats: 9 },
+        { name: "Yogurt (1 cup plain)", calories: 149, protein: 8.5, carbs: 11.4, fats: 8 },
+        { name: "Greek Yogurt (1 cup plain)", calories: 100, protein: 17, carbs: 6, fats: 0.7 },
+        { name: "Cottage Cheese (1/2 cup)", calories: 110, protein: 14, carbs: 3, fats: 5 },
+        { name: "Butter (1 tbsp)", calories: 102, protein: 0.1, carbs: 0, fats: 11.5 },
+        { name: "Olive Oil (1 tbsp)", calories: 119, protein: 0, carbs: 0, fats: 14 },
+        { name: "Coconut Oil (1 tbsp)", calories: 121, protein: 0, carbs: 0, fats: 14 },
+        { name: "Mayonnaise (1 tbsp)", calories: 94, protein: 0.1, carbs: 0.1, fats: 10.3 },
+        { name: "Dark Chocolate (1 oz)", calories: 170, protein: 2, carbs: 13, fats: 12 },
+        { name: "Milk Chocolate (1 oz)", calories: 152, protein: 2.2, carbs: 16, fats: 9 },
+        { name: "Honey (1 tbsp)", calories: 64, protein: 0.1, carbs: 17, fats: 0 },
+        { name: "Maple Syrup (1 tbsp)", calories: 52, protein: 0, carbs: 13, fats: 0 },
+        { name: "White Sugar (1 tbsp)", calories: 49, protein: 0, carbs: 13, fats: 0 },
+        { name: "Brown Sugar (1 tbsp)", calories: 52, protein: 0, carbs: 13, fats: 0 },
+        { name: "Coffee (black, 1 cup)", calories: 2, protein: 0.3, carbs: 0, fats: 0 },
+        { name: "Tea (unsweetened, 1 cup)", calories: 2, protein: 0, carbs: 0.7, fats: 0 },
+        { name: "Orange Juice (1 cup)", calories: 112, protein: 1.7, carbs: 26, fats: 0.5 },
+        { name: "Apple Juice (1 cup)", calories: 114, protein: 0.2, carbs: 28, fats: 0.3 },
+        { name: "Coca-Cola (1 can)", calories: 140, protein: 0, carbs: 39, fats: 0 },
+        { name: "Diet Coke (1 can)", calories: 0, protein: 0, carbs: 0, fats: 0 },
+        { name: "Beer (regular, 12 oz)", calories: 153, protein: 1.6, carbs: 13, fats: 0 },
+        { name: "Red Wine (5 oz)", calories: 125, protein: 0.1, carbs: 4, fats: 0 },
+        { name: "White Wine (5 oz)", calories: 121, protein: 0.1, carbs: 4, fats: 0 },
+        { name: "Vodka (1.5 oz)", calories: 97, protein: 0, carbs: 0, fats: 0 },
+        { name: "Whiskey (1.5 oz)", calories: 105, protein: 0, carbs: 0, fats: 0 },
+        { name: "Rum (1.5 oz)", calories: 97, protein: 0, carbs: 0, fats: 0 },
+        { name: "Tofu (100g)", calories: 76, protein: 8, carbs: 1.9, fats: 4.8 },
+        { name: "Tempeh (100g)", calories: 193, protein: 19, carbs: 9, fats: 11 },
+        { name: "Lentils (1 cup cooked)", calories: 230, protein: 18, carbs: 40, fats: 0.8 },
+        { name: "Black Beans (1 cup cooked)", calories: 227, protein: 15, carbs: 41, fats: 0.9 },
+        { name: "Chickpeas (1 cup cooked)", calories: 269, protein: 14.5, carbs: 45, fats: 4.2 },
+        { name: "Kidney Beans (1 cup cooked)", calories: 225, protein: 15, carbs: 40, fats: 0.9 },
+        { name: "Hummus (2 tbsp)", calories: 70, protein: 2, carbs: 4, fats: 5 },
+        { name: "Granola (1/2 cup)", calories: 226, protein: 5, carbs: 32, fats: 9 },
+        { name: "Muesli (1/2 cup)", calories: 152, protein: 4, carbs: 30, fats: 2 },
+        { name: "Popcorn (air-popped, 1 cup)", calories: 31, protein: 1, carbs: 6, fats: 0.4 },
+        { name: "Potato Chips (1 oz)", calories: 152, protein: 2, carbs: 15, fats: 10 },
+        { name: "Pretzels (1 oz)", calories: 108, protein: 2.8, carbs: 22, fats: 0.8 },
+        { name: "Crackers (10)", calories: 150, protein: 2, carbs: 20, fats: 7 },
+        { name: "Pancake (1 medium)", calories: 90, protein: 2, carbs: 15, fats: 2 },
+        { name: "Waffle (1)", calories: 218, protein: 5, carbs: 30, fats: 9 },
+        { name: "French Fries (medium)", calories: 365, protein: 4, carbs: 48, fats: 17 },
+        { name: "Pizza (1 slice cheese)", calories: 285, protein: 12, carbs: 36, fats: 10 },
+        { name: "Hamburger (with bun)", calories: 354, protein: 20, carbs: 29, fats: 17 },
+        { name: "Hot Dog (with bun)", calories: 290, protein: 10, carbs: 24, fats: 18 },
+        { name: "Fried Chicken (1 piece)", calories: 320, protein: 25, carbs: 11, fats: 19 },
+        { name: "Ice Cream (1/2 cup vanilla)", calories: 137, protein: 2.3, carbs: 16, fats: 7 },
+        { name: "Cake (1 slice chocolate)", calories: 352, protein: 5, carbs: 57, fats: 14 },
+        { name: "Cookie (1 chocolate chip)", calories: 78, protein: 0.9, carbs: 9.6, fats: 4.5 },
+        { name: "Donut (1 glazed)", calories: 260, protein: 3, carbs: 31, fats: 14 },
+        { name: "Muffin (1 blueberry)", calories: 426, protein: 5, carbs: 64, fats: 17 }
+		
+      ];
+
+      // DOM Elements
+      const calculatorTrigger = document.getElementById('calculatorTrigger');
+      const calculatorWidget = document.getElementById('calculatorWidget');
+      const closeCalculator = document.getElementById('closeCalculator');
+      const foodInput = document.getElementById('foodInput');
+      const foodDropdown = document.getElementById('foodDropdown');
+      const searchFood = document.getElementById('searchFood');
+      const foodList = document.getElementById('foodList');
+      const totalCalories = document.getElementById('totalCalories');
+      const totalProtein = document.getElementById('totalProtein');
+      const totalCarbs = document.getElementById('totalCarbs');
+      const totalFats = document.getElementById('totalFats');
+
+      // Selected foods array
+      let selectedFoods = [];
+
+      // Toggle calculator
+      calculatorTrigger.addEventListener('click', () => {
+        if (calculatorWidget.style.display === 'block') {
+          calculatorWidget.style.display = 'none';
+         } else {
+          calculatorWidget.style.display = 'block';
+          // Focus on input when opening
+          setTimeout(() => foodInput.focus(), 100);
+       }
+      });
+
+      //Close calculator with close button
+      closeCalculator.addEventListener('click', () => {
+        calculatorWidget.style.display = 'none';
+        hideDropdown();
+      });
+
+      //Close calculator when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!calculatorWidget.contains(e.target) && 
+          !calculatorTrigger.contains(e.target) && 
+          calculatorWidget.style.display === 'block') {
+        calculatorWidget.style.display = 'none';
+        hideDropdown();
+      }
+    });
+
+      // Search food functionality
+      foodInput.addEventListener('input', showDropdownResults);
+      foodInput.addEventListener('focus', showDropdownResults);
+      
+      // Hide dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!foodInput.contains(e.target) && !foodDropdown.contains(e.target)) {
+          hideDropdown();
+        }
+      });
+
+      // Search button click
+      searchFood.addEventListener('click', () => {
+        showDropdownResults();
+        foodDropdown.style.display = 'block';
+      });
+
+      function showDropdownResults() {
+        const searchTerm = foodInput.value.toLowerCase().trim();
+        
+        if (searchTerm === '') {
+          hideDropdown();
+          return;
+        }
+
+        const results = foodDatabase.filter(food => 
+          food.name.toLowerCase().includes(searchTerm)
+        ).slice(0, 10); // Show max 10 results
+
+        if (results.length === 0) {
+          foodDropdown.innerHTML = '<div class="dropdown-item">No foods found</div>';
+          foodDropdown.style.display = 'block';
+          return;
+        }
+
+        foodDropdown.innerHTML = '';
+        results.forEach(food => {
+          const item = document.createElement('div');
+          item.className = 'dropdown-item';
+          item.innerHTML = `
+            <strong>${food.name}</strong>
+            <span>${food.calories} kcal</span>
+          `;
+          item.addEventListener('click', () => {
+            addFood(food);
+            hideDropdown();
+          });
+          foodDropdown.appendChild(item);
+        });
+        
+        foodDropdown.style.display = 'block';
+      }
+
+      function hideDropdown() {
+        foodDropdown.style.display = 'none';
+      }
+
+      // Add food to list
+      function addFood(food) {
+        selectedFoods.push(food);
+        updateFoodList();
+        updateTotals();
+        foodInput.value = '';
+        foodInput.focus();
+      }
+
+      // Update food list display
+      function updateFoodList() {
+        foodList.innerHTML = '';
+        selectedFoods.forEach((food, index) => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <span>${food.name}</span>
+            <span>${food.calories} kcal</span>
+            <span class="remove-food" data-index="${index}">&times;</span>
+          `;
+          foodList.appendChild(li);
+        });
+
+        // Add event listeners to remove buttons
+        document.querySelectorAll('.remove-food').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const index = e.target.getAttribute('data-index');
+            selectedFoods.splice(index, 1);
+            updateFoodList();
+            updateTotals();
+          });
+        });
+      }
+
+      // Update nutrition totals
+      function updateTotals() {
+        const totals = selectedFoods.reduce((acc, food) => {
+          acc.calories += food.calories;
+          acc.protein += food.protein;
+          acc.carbs += food.carbs;
+          acc.fats += food.fats;
+          return acc;
+        }, { calories: 0, protein: 0, carbs: 0, fats: 0 });
+
+        totalCalories.textContent = totals.calories;
+        totalProtein.textContent = totals.protein.toFixed(1);
+        totalCarbs.textContent = totals.carbs.toFixed(1);
+        totalFats.textContent = totals.fats.toFixed(1);
+      }
+    </script>
+  </body>
+</html>
